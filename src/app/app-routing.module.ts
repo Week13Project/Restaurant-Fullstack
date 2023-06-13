@@ -15,6 +15,10 @@ const routes: Routes = [
       {
         path: ':restaurantid',
         component: MenuComponent,
+      },
+      {
+        path: 'menu',
+        component: MenuComponent,
       }
     ],
   }

@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./menu.component.css']
 })
 export class MenuComponent {
+  arr!:number[];
+  
+  constructor() {
+    this.arr = Array(10);
+  }
 
 }

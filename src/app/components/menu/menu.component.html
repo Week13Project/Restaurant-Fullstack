@@ -1,1 +1,14 @@
-<p>menu works!</p>
+<section class="clean-block about-us">
+    <div class="container">
+        <div class="block-heading">
+            <h2 class="text-info">About Us</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+        </div>
+        <div class="row justify-content-center">
+            <app-menu-item 
+                *ngFor="let number of arr"
+                class="col-lg-4 d-flex p-2">
+            </app-menu-item>
+        </div>
+    </div>
+</section>
