@@ -7,6 +7,11 @@ import { MenuComponent } from './components/menu/menu.component';
 import { MenuItemComponent } from './components/menu-item/menu-item.component';
 import { NavComponent } from './components/nav/nav.component';
 import { FooterComponent } from './components/footer/footer.component';
+import { MainComponent } from './components/main/main.component';
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [
@@ -14,11 +19,17 @@ import { FooterComponent } from './components/footer/footer.component';
     MenuComponent,
     MenuItemComponent,
     NavComponent,
-    FooterComponent
+    FooterComponent,
+    MainComponent,
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

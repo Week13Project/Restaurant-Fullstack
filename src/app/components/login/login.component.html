@@ -1,0 +1,35 @@
+<section class="clean-block clean-form dark">
+    <div class="container">
+        <div class="block-heading">
+            <h2 class="text-info">Log In</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
+        </div>
+        <form method="post" [formGroup]="loginForm" (ngSubmit)="login()">
+            <div class="mb-3"><label class="form-label" for="email">Email</label><input id="email" class="form-control item" type="email" formControlName="username" required></div>
+            <div class="mb-3"><label class="form-label" for="password">Password</label><input id="password" class="form-control" type="password" formControlName="password" required></div>
+            <!-- <div class="mb-3">
+                <div class="form-check"><input id="checkbox" class="form-check-input" type="checkbox" /><label class="form-check-label" for="checkbox">Remember me</label></div>
+            </div> -->
+            <div *ngIf="(loginForm.invalid&&(u.touched||p.touched)) || failed" class="alert alert-danger" role="alert">
+
+                <div *ngIf="u.errors?.['required']">
+                    Username is required.
+                </div>
+                <div *ngIf="p.errors?.['required']">
+                    Password is required.
+                </div>
+                <div *ngIf="failed">
+                    Username and/or Password is incorrect
+                </div>
+
+            </div>
+            <div class="mb-3 row">
+                <div class="col"><a class="btn btn-outline-primary w-100" routerLink="/signup">Sign Up</a></div>
+                <div class="col"><button class="btn btn-primary w-100" type="submit" [disabled]="loginForm.invalid">Log In</button></div>
+            </div>
+            <div class="mb-3 row">
+                <div class="col"><a class="btn btn-outline-primary w-100" routerLink="/home">Back to Home</a></div>
+            </div>
+        </form>
+    </div>
+</section>
