@@ -12,6 +12,7 @@ import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { RestaurantsComponent } from './restaurants/restaurants.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     FooterComponent,
     MainComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    RestaurantsComponent
   ],
   imports: [
     BrowserModule,
