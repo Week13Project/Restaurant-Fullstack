@@ -63,6 +63,8 @@ export class SignupComponent {
       next: (response) => {
         console.log(response);
         this.openSnackBar("User added successfully");
+        
+        this.router.navigate(["/login"]);
     },
       error: (error) => this.openSnackBar("User added failed"),
     });
