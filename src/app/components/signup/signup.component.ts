@@ -3,6 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import {User} from '../../model/user';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UsersapiService } from 'src/app/services/usersapi.service';
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +16,6 @@ export class SignupComponent {
   password: string = "";
   confirmPassword: string = "";
 
-  /** The ! means that the signupForm variable is not null*/
   signupForm!: FormGroup;
 
   message: any ="";
@@ -23,7 +23,7 @@ export class SignupComponent {
   
   passwordMatch: boolean = true;
 
-  constructor(private router: Router, private formBuilder: FormBuilder,public snackBar: MatSnackBar){
+  constructor(private service: UsersapiService, private router: Router, private formBuilder: FormBuilder,public snackBar: MatSnackBar){
     this.signupForm = new FormGroup({
         username: new FormControl(this.username, [Validators.required]),
         password: new FormControl(this.password, [Validators.required]),
@@ -37,6 +37,16 @@ export class SignupComponent {
   get cp(): any { return this.signupForm.get('confirmPassword');}
 
   checkUsername(){
+    console.log(this.signupForm.value.username);
+    
+    this.service.getUser(this.signupForm.value.username).subscribe(u =>{
+      if(u.username === this.signupForm.value.username){
+        this.failed=true;
+        console.log("Already Exists");
+      }else{
+        this.failed=false;
+      }
+    });
   }
   
   checkPassword(){
@@ -44,6 +54,13 @@ export class SignupComponent {
   }
 
   addUser(){
+    this.service.addUser(this.signupForm.value).subscribe({
+      next: (response) => {
+        console.log(response);
+        this.openSnackBar("User added successfully");
+    },
+      error: (error) => this.openSnackBar("User added failed"),
+    });
   }
 
   openSnackBar(message: string) {

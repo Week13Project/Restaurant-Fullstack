@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { UsersapiService } from 'src/app/services/usersapi.service';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,7 @@ export class LoginComponent {
   loginForm!: FormGroup;
   failed: boolean = false;
 
-  constructor(private router: Router, private formBuilder: FormBuilder){
+  constructor(private service: UsersapiService, private router: Router, private formBuilder: FormBuilder){
     this.loginForm = new FormGroup({
       username: new FormControl(this.username, [
         Validators.required
@@ -29,16 +30,15 @@ export class LoginComponent {
   get p(): any { return this.loginForm.get('password');}
   
   async login(){
-    // let resp = this.service.login(this.loginForm.value);
-    // resp.subscribe({
-    //   next: async () => {
-    //     var userid = await this.service.userid(this.loginForm.value.username);
+    this.service.login(this.loginForm.value).subscribe({
+      next: async () => {
+        var userid = await this.service.userid(this.loginForm.value.username);
 
-    //     sessionStorage.setItem("userid", userid);
+        sessionStorage.setItem("userid", userid);
 
-    //     this.router.navigate(["/main/projects/"+userid]);
-    //   },
-    //   error: (error) =>  this.failed = true
-    // });
+        this.router.navigate(["/home"]);
+      },
+      error: (error) =>  this.failed = true
+    });
   }
 }

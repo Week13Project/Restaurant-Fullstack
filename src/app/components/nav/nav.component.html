@@ -9,7 +9,14 @@
                 <li class="nav-item"><a class="nav-link" href="contact-us.html">Contact Us</a></li>
                 <li class="nav-item"><a class="btn btn-primary" routerLink="/login">Log In</a></li>
                 <li class="nav-item"><a class="btn btn-primary" routerLink="/home/restaurants">restaurants</a></li>
+                <!-- <li class="nav-item"><a class="btn btn-primary" routerLink="/login">Log In</a></li> -->
             </ul>
+            <ng-container *ngIf="loggedin">
+                <a class="btn btn-primary shadow" role="button" (click)="logout()">Logout</a>
+            </ng-container>
+            <ng-container *ngIf="!loggedin">
+                <a class="btn btn-primary shadow" role="button" routerLink="/login">Login</a>
+            </ng-container>
         </div>
     </div>
 </nav>
