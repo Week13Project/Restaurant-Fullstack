@@ -50,9 +50,7 @@ export class UsersapiService {
     return this.http.get<User>(this.apiUrl+"users/"+user);
   }
   
-  public addUser(user:User){
-    user.role="ROLE_USER";
-    
+  public addUser(user:User){    
     return this.http.post(this.apiUrl+"users", user);
   }
 }

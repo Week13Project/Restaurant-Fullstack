@@ -13,9 +13,10 @@ import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { RestaurantsComponent } from './restaurants/restaurants.component';
+import { RestaurantsComponent } from './components/restaurants/restaurants.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { UsersapiService } from './services/usersapi.service';
+import { MatRadioModule } from '@angular/material/radio';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { UsersapiService } from './services/usersapi.service';
     FormsModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatRadioModule
   ],
   providers: [UsersapiService],
   bootstrap: [AppComponent]

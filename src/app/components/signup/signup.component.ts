@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-import {User} from '../../model/user';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UsersapiService } from 'src/app/services/usersapi.service';
 
@@ -15,6 +14,7 @@ export class SignupComponent {
   username: string = "";
   password: string = "";
   confirmPassword: string = "";
+  role: string = "";
 
   signupForm!: FormGroup;
 
@@ -27,7 +27,8 @@ export class SignupComponent {
     this.signupForm = new FormGroup({
         username: new FormControl(this.username, [Validators.required]),
         password: new FormControl(this.password, [Validators.required]),
-        confirmPassword: new FormControl(this.confirmPassword, [Validators.required])
+        confirmPassword: new FormControl(this.confirmPassword, [Validators.required]),
+        role: new FormControl(this.role, [Validators.required])
       });
   }
 
@@ -35,6 +36,7 @@ export class SignupComponent {
   get u(): any { return this.signupForm.get('username');}
   get p(): any { return this.signupForm.get('password');}
   get cp(): any { return this.signupForm.get('confirmPassword');}
+  get r(): any { return this.signupForm.get('role');}
 
   checkUsername(){
     console.log(this.signupForm.value.username);
@@ -54,6 +56,9 @@ export class SignupComponent {
   }
 
   addUser(){
+    const roles = ["ROLE_OWNER","ROLE_USER"];
+    this.signupForm.value.role= roles[parseInt(this.signupForm.value.role)];
+    
     this.service.addUser(this.signupForm.value).subscribe({
       next: (response) => {
         console.log(response);
