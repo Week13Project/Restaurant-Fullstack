@@ -10,7 +10,9 @@ import { RestaurantService } from 'src/app/services/restaurant.service';
 export class RestaurantsComponent implements OnInit {
   public restaurants: Restaurant[];
 
-  constructor(private restaurantService: RestaurantService){}
+  constructor(private restaurantService: RestaurantService){
+    this.getRestaurants();
+  }
 
   ngOnInit(): void {
   /*  this.restaurants = 
@@ -40,12 +42,15 @@ export class RestaurantsComponent implements OnInit {
         "price" : 10
       }
     ] */
-    this.getRestaurants();
+    // this.getRestaurants();
   }
 
   public getRestaurants(): void {
     this.restaurantService.getRestaurants().subscribe({
-      next: (response: Restaurant[]) => console.log(response),
+      next: (response: Restaurant[]) => {
+        console.log(response);
+        this.restaurants=response;
+      },
       //error: (e) => alert(e.message),
       complete: () => console.log(this.restaurants)
     })

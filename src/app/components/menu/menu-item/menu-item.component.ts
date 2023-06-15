@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { MenuItem } from 'src/app/model/menu-item';
 
 @Component({
   selector: 'app-menu-item',
@@ -6,5 +7,7 @@ import { Component } from '@angular/core';
   styleUrls: ['./menu-item.component.css']
 })
 export class MenuItemComponent {
+  @Input() item:MenuItem;
+  @Input() index:number;
 
 }

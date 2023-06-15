@@ -6,8 +6,11 @@
         </div>
         <div class="row justify-content-center">
             <app-menu-item 
-                *ngFor="let number of arr"
-                class="col-lg-4 d-flex p-2">
+                *ngFor="let item of menu; let i = index;"
+                [index]=i
+                [item]="item"
+                class="col-lg-4 d-flex p-2"
+                >
             </app-menu-item>
         </div>
     </div>
