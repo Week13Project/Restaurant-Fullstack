@@ -8,14 +8,14 @@ import { MenuItem } from '../model/menu-item';
   providedIn: 'root'
 })
 export class RestaurantService {
-  apiUrl: string = "http://localhost:9080/";
+  apiUrl: string = "http://localhost:9080";
   constructor(private http: HttpClient) { }
 
   public getRestaurants(): Observable<Restaurant[]> {
-    return this.http.get<Restaurant[]>(this.apiUrl+"restaurants")
+    return this.http.get<Restaurant[]>(`${this.apiUrl}/restaurants`)
   }
 
   public getMenuByRestaurantId(id:string|null): Observable<MenuItem[]> {
-    return this.http.get<MenuItem[]>(this.apiUrl+id+"/items")
+    return this.http.get<MenuItem[]>(`${this.apiUrl}/${id}/items`)
   }
 }

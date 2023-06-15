@@ -47,13 +47,28 @@ export class RestaurantsComponent implements OnInit {
 
   public getRestaurants(): void {
     this.restaurantService.getRestaurants().subscribe({
+
       next: (response: Restaurant[]) => {
         console.log(response);
         this.restaurants=response;
       },
-      //error: (e) => alert(e.message),
-      complete: () => console.log(this.restaurants)
+      error: (e) => alert(e.message)
     })
+  }
+
+  public searchRestaurants(search: string): void {
+    const searchResult: Restaurant[] = [];
+    for(const restaurant of this.restaurants) {
+      if(restaurant.name.toLowerCase().indexOf(search.toLowerCase()) !== -1)
+      {
+        searchResult.push(restaurant);
+      }
+    }
+    this.restaurants = searchResult;
+    if(searchResult.length == 0 || !search)
+    {
+      this.getRestaurants();
+    }
   }
 
 }
