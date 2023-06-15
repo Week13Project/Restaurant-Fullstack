@@ -12,10 +12,10 @@ export class RestaurantService {
   constructor(private http: HttpClient) { }
 
   public getRestaurants(): Observable<Restaurant[]> {
-    return this.http.get<Restaurant[]>(this.apiUrl+"restaurants")
+    return this.http.get<Restaurant[]>(`${this.apiUrl}/restaurants`)
   }
 
   public getMenuByRestaurantId(id:string|null): Observable<MenuItem[]> {
-    return this.http.get<MenuItem[]>(this.apiUrl+id+"/items")
+    return this.http.get<MenuItem[]>(`${this.apiUrl}/${id}/items`)
   }
 }

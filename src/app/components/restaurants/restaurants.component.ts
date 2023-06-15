@@ -47,9 +47,12 @@ export class RestaurantsComponent implements OnInit {
 
   public getRestaurants(): void {
     this.restaurantService.getRestaurants().subscribe({
-      next: (response: Restaurant[]) => this.restaurants = response,
-      //error: (e) => alert(e.message),
-      complete: () => console.log(this.restaurants)
+
+      next: (response: Restaurant[]) => {
+        console.log(response);
+        this.restaurants=response;
+      },
+      error: (e) => alert(e.message)
     })
   }
 
