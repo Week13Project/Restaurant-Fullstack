@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class RestaurantService {
-  apiUrl: string = "http://localhost:9080/";
+  apiUrl: string = "http://localhost:9080";
   constructor(private http: HttpClient) { }
 
   public getRestaurants(): Observable<Restaurant[]> {
