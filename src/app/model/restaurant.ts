@@ -1,12 +1,13 @@
 import { Time } from "@angular/common";
 
 export interface Restaurant {
-    user_id?: number
+    restaurantId?: number
     owner?: number
     name: string
-    price: string
+    price: number
     address?: string
-    phone?: string
+    phone?: number
+    disabled: boolean
     created_at?: Time
     removed_at?: Time
 }
