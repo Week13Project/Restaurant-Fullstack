@@ -1,0 +1,31 @@
+<section class="clean-block clean-form dark">
+    <div class="container">
+        <div class="block-heading">
+            <h2 class="page-heading text-info">Add Menu Item to</h2>
+        </div>
+        <form>
+            <div class="mb-3"><label class="form-label" for="name">Name</label><input id="name" class="form-control" type="text" name="name" /></div>
+            <div class="row">
+                <div class="col">
+                    <div class="mb-3"><label class="form-label" for="price">Price</label><input id="price" class="form-control" type="number" name="price" /></div>
+                </div>
+                <div class="col">
+                    <div class="mb-3">
+                        <label class="form-label" for="categories">Category</label>
+                            <!-- <input id="subject-1" class="form-control" type="text" name="subject" /> -->
+                    
+                        <mat-select id="categories" formControlName="categories" class="form-control" [formControl]="control" multiple placeholder="Categories">
+                            <mat-option value="appetizers">Appetizers</mat-option>
+                            <mat-option value="sides">Sides</mat-option>
+                            <mat-option value="entrees">Entrées</mat-option>
+                            <mat-option value="desserts ">Desserts </mat-option>
+                            <mat-option value="Beverages">beverages</mat-option>
+                        </mat-select>
+                    </div>
+                </div>
+            </div>
+            <div class="mb-3"><label class="form-label" for="message">Description</label><textarea id="message" class="form-control" name="message"></textarea></div>
+            <div class="mb-3"><button class="btn btn-primary" type="submit">Add</button></div>
+        </form>
+    </div>
+</section>

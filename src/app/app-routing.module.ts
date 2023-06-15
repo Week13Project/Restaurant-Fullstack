@@ -5,6 +5,7 @@ import { MenuComponent } from './components/menu/menu.component';
 import { SignupComponent } from './components/signup/signup.component';
 import { LoginComponent } from './components/login/login.component';
 import { RestaurantsComponent } from './components/restaurants/restaurants.component';
+import { AdditemComponent } from './components/additem/additem.component';
 
 const routes: Routes = [
   {path: '' , redirectTo: 'home', pathMatch: 'full'},
@@ -18,10 +19,10 @@ const routes: Routes = [
         path: 'restaurants',
         component: RestaurantsComponent,
       },
-      // {
-      //   path: 'menu',
-      //   component: MenuComponent,
-      // },
+      {
+        path: 'add',
+        component: AdditemComponent,
+      },
       {
         path: ':restaurantid/menu',
         component: MenuComponent,

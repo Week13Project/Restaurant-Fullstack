@@ -17,6 +17,8 @@ import { RestaurantsComponent } from './components/restaurants/restaurants.compo
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { UsersapiService } from './services/usersapi.service';
 import { MatRadioModule } from '@angular/material/radio';
+import { MatSelectModule } from '@angular/material/select';
+import { AdditemComponent } from './components/additem/additem.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,8 @@ import { MatRadioModule } from '@angular/material/radio';
     MainComponent,
     LoginComponent,
     SignupComponent,
-    RestaurantsComponent
+    RestaurantsComponent,
+    AdditemComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +41,8 @@ import { MatRadioModule } from '@angular/material/radio';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatSnackBarModule,
-    MatRadioModule
+    MatRadioModule,
+    MatSelectModule
   ],
   providers: [UsersapiService],
   bootstrap: [AppComponent]
