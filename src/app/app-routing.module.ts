@@ -18,12 +18,12 @@ const routes: Routes = [
         path: 'restaurants',
         component: RestaurantsComponent,
       },
+      // {
+      //   path: 'menu',
+      //   component: MenuComponent,
+      // },
       {
-        path: 'menu',
-        component: MenuComponent,
-      },
-      {
-        path: ':restaurantid',
+        path: ':restaurantid/menu',
         component: MenuComponent,
       }
     ],
