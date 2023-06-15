@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { MenuItem } from 'src/app/model/menu-item';
 
 @Component({
@@ -6,8 +6,14 @@ import { MenuItem } from 'src/app/model/menu-item';
   templateUrl: './menu-item.component.html',
   styleUrls: ['./menu-item.component.css']
 })
-export class MenuItemComponent {
+export class MenuItemComponent implements OnInit {
   @Input() item:MenuItem;
   @Input() index:number;
+
+  ngOnInit(){
+    if(this.item.path===undefined){
+      this.item.path="assets/img/food/hamburger.jpg";
+    }
+  } 
 
 }

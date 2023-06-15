@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MenuItem } from 'src/app/model/menu-item';
 import { Restaurant } from 'src/app/model/restaurant'; 
 import { RestaurantService } from 'src/app/services/restaurant.service';
 
@@ -12,31 +13,30 @@ import { RestaurantService } from 'src/app/services/restaurant.service';
 })
 export class AdditemComponent {
   r!:Restaurant;
+  item:MenuItem
   
-  @Input() tags?: string[];
   control = new FormControl();
 
   add:string = "Add";
   editing: boolean = false;
   editid:any;
   userid!:any;
-  
-  newTag: string ="";
 
-  projectForm!: FormGroup;
+  itemForm!: FormGroup;
   
-  vaidTag : boolean = true;
-  tagerror : string ="";
+  public imagePath: any;
+  imgURL: any;
+  public message: string;
 
   
   constructor(private service: RestaurantService, public snackBar: MatSnackBar, private route: ActivatedRoute, private router: Router) {
     // this.userid = sessionStorage.getItem("userid");
     
-    // const headers = sessionStorage.getItem("headers");
+    const headers = sessionStorage.getItem("headers");
     
-    // if(headers == null){
-    //   this.router.navigate(["/login"]);
-    // }
+    if(headers == null){
+      this.router.navigate(["/login"]);
+    }
 
     // this.service.findAll(this.userid).subscribe((data) => {
     //   const t : Set<string> = new Set<string>();
@@ -47,84 +47,102 @@ export class AdditemComponent {
     // });
     // const urlreg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
 
-    // this.editid = this.route.snapshot.paramMap.get('projectid');
+    this.editid = this.route.snapshot.paramMap.get('projectid');
     
-    // if(this.editid!==undefined&&this.editid!==null){
-    //   this.editing =true;
-    //   this.edit();
-    // }
+    if(this.editid!==undefined&&this.editid!==null){
+      this.editing =true;
+      this.edit();
+    }
+    this.itemForm = new FormGroup({
+      name: new FormControl(this.item?.name, [
+        Validators.required
+      ]),
+      price: new FormControl(this.item?.price, [
+        Validators.required
+      ]),
+      category: new FormControl(this.item?.category, [
+        Validators.required
+      ]),
+      description: new FormControl(this.item?.description),
+      path: new FormControl(this.item?.path)
+    });
     
-    // this.projectForm = new FormGroup({
-    //   title: new FormControl(this.p?.title, [
-    //     Validators.required
-    //   ]),
-    //   skills: new FormControl(this.p?.skills),
-    //   github: new FormControl(this.p?.github, [
-    //     Validators.pattern(urlreg)
-    //   ]),
-    //   site: new FormControl(this.p?.site, [
-    //     Validators.pattern(urlreg)
-    //   ]),
-    //   description: new FormControl(this.p?.title)
+    this.itemForm.patchValue({path: "assets/img/food/hamburger.jpg"});
+    console.log(this.itemForm.value);
+    this.item=this.itemForm.value;
+    
+  }
+
+  get name(): any { return this.itemForm.get('name');}
+  get price(): any { return this.itemForm.get('price');}
+  get category(): any { return this.itemForm.get('category');}
+  get description(): any { return this.itemForm.get('description');}
+  
+
+  edit():void{
+    // this.add ="Edit";
+
+    // this.service.find(this.editid).subscribe({
+    //   next: (response) => 
+    //   this.itemForm.patchValue({
+    //     title: response.title,
+    //     skills: response.github,
+    //     github: response.github,
+    //     site: response.site,
+    //     description: response.description
+    //   }),
+    //   error: (error) => console.log(error),
     // });
   }
 
-  get title(): any { return this.projectForm.get('title');}
-  get github(): any { return this.projectForm.get('github');}
-  get site(): any { return this.projectForm.get('site');}
+  onChange() { 
+    this.item=this.itemForm.value;
+    this.item.restaurantId = 1;
+    console.log(this.item);
+  } 
   
+  handleUpload(files:any):void{
+    if (files.length === 0)
+      return;
+ 
+    var mimeType = files[0].type;
+    if (mimeType.match(/image\/*/) == null) {
+      this.message = "Only images are supported.";
+      return;
+    }
+ 
+    var reader = new FileReader();
+    this.imagePath = files[0];
+    reader.readAsDataURL(files[0]); 
+    reader.onload = (_event) => { 
+      this.item.path = reader.result;
+    }
 
-  // edit():void{
-  //   this.add ="Edit";
-
-  //   this.service.find(this.editid).subscribe({
-  //     next: (response) => 
-  //     this.projectForm.patchValue({
-  //       title: response.title,
-  //       skills: skillEdit(response.skills),
-  //       github: response.github,
-  //       site: response.site,
-  //       description: response.description
-  //     }),
-  //     error: (error) => console.log(error),
-  //   });
-  // }
+ }
 
   onSubmit() { 
-    // if(this.projectForm.value!==undefined){    
-    //   if(this.projectForm.value.skills instanceof Array){   
-    //     this.projectForm.value.skills = skillsList(this.projectForm.value.skills);
-    //   }
-    //   if(this.projectForm.value.github == ""){
-    //     this.projectForm.value.github=null;
-    //   }
-    //   if(this.projectForm.value.site == ""){
-    //     this.projectForm.value.site=null;
-    //   }
-
-    //     this.projectForm.value.id= this.editid;
-    //     this.projectForm.value.uid= this.userid;
-    //     console.log(this.projectForm.value);
-
-    //   if(this.editing){ 
-    //         this.service.update(this.projectForm.value, this.editid).subscribe({
-    //         next: (response) => {
-    //           this.openSnackBar("Project edit successfully");
-    //           this.router.navigate(["/main/projects/"+this.userid]);
-    //       },
-    //         error: (error) => this.openSnackBar("Project edit failed"),
-    //       });
-    //     } else {
-    //       this.service.save(this.projectForm.value).subscribe({
-    //         next: (response) =>{ 
-    //           this.openSnackBar("Project posted successfully");
-    //           this.router.navigate(["/main/projects/"+this.userid]);
-    //       },
-    //         error: (error) => this.openSnackBar("Project posted failed"),
-    //       });
-    //     }        
-    // }
-  }
+      // if(this.editing){ 
+      //       this.service.update(this.itemForm.value, this.editid).subscribe({
+      //       next: (response) => {
+      //         this.openSnackBar("Project edit successfully");
+      //         this.router.navigate(["/main/projects/"+this.userid]);
+      //     },
+      //       error: (error) => this.openSnackBar("Project edit failed"),
+      //     });
+      //   } else {
+        
+          this.service.postItem(this.itemForm.value).subscribe({
+            next: (response) =>{ 
+              this.openSnackBar("Item posted successfully");
+              // this.router.navigate(["/main/projects/"+this.userid]);
+          },
+            error: (error) => {
+              console.log(error);
+              this.openSnackBar("Item posted failed");
+            },
+          });
+        // }        
+    }
 
   openSnackBar(message: string) {
     this.snackBar.open(message, "OK", {
@@ -132,44 +150,5 @@ export class AdditemComponent {
     });
   }
 
-  addNewTag(newTag: string){
-    newTag = newTag.trim();
-    var unique = !this.tags?.some(x => x.toLowerCase() == newTag.toLowerCase());
-    
-    if (unique&&newTag!=""){
-      this.vaidTag = true;
-      this.tags?.push(newTag);
-    } else if (newTag==""){
-      this.vaidTag = false;
-      this.tagerror ="Tag can not be blank."
-    } else {
-      this.vaidTag = false;
-      this.tagerror ="Tag already listed."
-    }
-  }
-
-}
-
-function skillsList(skills: string[]): any {
-
-  if(skills!=null){
-    if(skills.length>1){
-      return skills.join(", ");
-    } else if(skills.length==1) {
-      return skills[0];
-    } else{
-      return null;
-    }
-  }
-        
-}
-
-function skillEdit(skills: string ): string[] {
-    
-  if(skills !==null){  
-    return skills.split(", ");
-  }
-  return [];
- 
 }
 

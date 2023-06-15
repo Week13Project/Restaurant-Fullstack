@@ -9,7 +9,10 @@ import { MenuItem } from '../model/menu-item';
 })
 export class RestaurantService {
   apiUrl: string = "http://localhost:9080";
-  constructor(private http: HttpClient) { }
+  headers:any;
+  constructor(private http: HttpClient) { 
+    this.headers = new HttpHeaders({Authorization: 'Basic '+sessionStorage.getItem("headers")});
+  }
 
   public getRestaurants(): Observable<Restaurant[]> {
     return this.http.get<Restaurant[]>(`${this.apiUrl}/restaurants`)
@@ -17,5 +20,11 @@ export class RestaurantService {
 
   public getMenuByRestaurantId(id:string|null): Observable<MenuItem[]> {
     return this.http.get<MenuItem[]>(`${this.apiUrl}/${id}/items`)
+  }
+
+  public postItem(item:MenuItem) {
+    console.log(this.headers);
+    
+    return this.http.post(this.apiUrl+"/items", item, { headers: this.headers});
   }
 }

@@ -3,29 +3,54 @@
         <div class="block-heading">
             <h2 class="page-heading text-info">Add Menu Item to</h2>
         </div>
-        <form>
-            <div class="mb-3"><label class="form-label" for="name">Name</label><input id="name" class="form-control" type="text" name="name" /></div>
-            <div class="row">
-                <div class="col">
-                    <div class="mb-3"><label class="form-label" for="price">Price</label><input id="price" class="form-control" type="number" name="price" /></div>
-                </div>
-                <div class="col">
-                    <div class="mb-3">
-                        <label class="form-label" for="categories">Category</label>
-                            <!-- <input id="subject-1" class="form-control" type="text" name="subject" /> -->
-                    
-                        <mat-select id="categories" formControlName="categories" class="form-control" [formControl]="control" multiple placeholder="Categories">
-                            <mat-option value="appetizers">Appetizers</mat-option>
-                            <mat-option value="sides">Sides</mat-option>
-                            <mat-option value="entrees">Entrées</mat-option>
-                            <mat-option value="desserts ">Desserts </mat-option>
-                            <mat-option value="Beverages">beverages</mat-option>
-                        </mat-select>
+        <div class="row">
+            <div class="col">
+                <form method="post" [formGroup]="itemForm" (ngSubmit)="onSubmit()" (change)="onChange()">
+                    <div class="mb-3"><label class="form-label" for="name">Name</label><input id="name" formControlName="name" class="form-control" type="text" name="name" required/></div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3"><label class="form-label" for="price">Price</label><input id="price" formControlName="price" class="form-control" type="number" name="price" required/></div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3">
+                                <label class="form-label" for="category">Category</label>
+                                    <!-- <input id="subject-1" class="form-control" type="text" name="subject" /> -->
+                            
+                                <mat-select id="category" formControlName="category" class="form-control" [formControl]="control" placeholder="category" required>
+                                    <mat-option value="appetizers">Appetizers</mat-option>
+                                    <mat-option value="sides">Sides</mat-option>
+                                    <mat-option value="entrees">Entrées</mat-option>
+                                    <mat-option value="desserts ">Desserts </mat-option>
+                                    <mat-option value="Beverages">beverages</mat-option>
+                                </mat-select>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                    <div class="mb-3"><label class="form-label" for="description">Description</label><textarea id="mesdescriptionsage" formControlName="description" class="form-control" name="description"></textarea></div>
+                    
+                    <div class="mb-3"><input class="form-control" #file type="file" accept='image/*' (change)="handleUpload(file.files)"/></div>
+
+                    <div *ngIf="itemForm.invalid && (name.touched&&price.touched&&category.touched)" class="alert alert-danger">
+                        
+                        <div *ngIf="name.errors?.['required']&&name.touched">
+                            Name is required.
+                        </div>
+                        <div *ngIf="price.errors?.['required']&&price.touched">
+                            Price is required.
+                        </div>
+                        <div *ngIf="category.errors?.['required']&&category.touched">
+                            Category is required.
+                        </div>
+                    </div>
+                    <div class="mb-3"><button class="btn btn-primary" type="submit">Add</button></div>
+                </form>
             </div>
-            <div class="mb-3"><label class="form-label" for="message">Description</label><textarea id="message" class="form-control" name="message"></textarea></div>
-            <div class="mb-3"><button class="btn btn-primary" type="submit">Add</button></div>
-        </form>
+            <div class="col-4 align-self-center">
+                <app-menu-item 
+                    [index]=1
+                    [item]=this.item>
+                </app-menu-item>
+            </div>
+        </div>
     </div>
 </section>

@@ -42,7 +42,7 @@ import { AdditemComponent } from './components/additem/additem.component';
     BrowserAnimationsModule,
     MatSnackBarModule,
     MatRadioModule,
-    MatSelectModule
+    MatSelectModule,
   ],
   providers: [UsersapiService],
   bootstrap: [AppComponent]
