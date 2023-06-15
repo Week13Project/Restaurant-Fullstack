@@ -16,7 +16,7 @@
                                 <label class="form-label" for="category">Category</label>
                                     <!-- <input id="subject-1" class="form-control" type="text" name="subject" /> -->
                             
-                                <mat-select id="category" formControlName="category" class="form-control" [formControl]="control" placeholder="category" required>
+                                <mat-select id="category" formControlName="category" class="form-control" [formControl]="control" placeholder="Category" required>
                                     <mat-option value="appetizers">Appetizers</mat-option>
                                     <mat-option value="sides">Sides</mat-option>
                                     <mat-option value="entrees">Entrées</mat-option>
@@ -42,7 +42,7 @@
                             Category is required.
                         </div>
                     </div>
-                    <div class="mb-3"><button class="btn btn-primary" type="submit">Add</button></div>
+                    <div class="mb-3"><button class="btn btn-primary" type="submit" [disabled]="itemForm.invalid">Add</button></div>
                 </form>
             </div>
             <div class="col-4 align-self-center">
