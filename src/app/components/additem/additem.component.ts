@@ -21,16 +21,17 @@ export class AdditemComponent {
   editing: boolean = false;
   editid:any;
   userid!:any;
+  routeid:string|null;
 
   itemForm!: FormGroup;
   
   public imagePath: any;
   imgURL: any;
   public message: string;
-
   
   constructor(private service: RestaurantService, public snackBar: MatSnackBar, private route: ActivatedRoute, private router: Router) {
     // this.userid = sessionStorage.getItem("userid");
+    this.routeid = this.route.snapshot.paramMap.get('restaurantid');
     
     const headers = sessionStorage.getItem("headers");
     
@@ -97,7 +98,9 @@ export class AdditemComponent {
 
   onChange() { 
     this.item=this.itemForm.value;
-    this.item.restaurantId = 1;
+    if(this.routeid!==null){
+      this.item.restaurantId = parseInt(this.routeid);
+    }
     console.log(this.item);
   } 
   

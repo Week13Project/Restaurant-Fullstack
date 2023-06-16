@@ -20,12 +20,14 @@ const routes: Routes = [
         component: RestaurantsComponent,
       },
       {
-        path: 'add',
+        path: ':restaurantid/add',
         component: AdditemComponent,
       },
       {
         path: ':restaurantid/menu',
         component: MenuComponent,
+        children: [
+        ]
       }
     ],
   }

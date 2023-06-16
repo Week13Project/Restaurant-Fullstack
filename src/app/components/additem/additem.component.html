@@ -1,7 +1,7 @@
 <section class="clean-block clean-form dark">
     <div class="container">
         <div class="block-heading">
-            <h2 class="page-heading text-info">Add Menu Item to</h2>
+            <h2 class="text-info">Add Menu Item to</h2>
         </div>
         <div class="row">
             <div class="col">
@@ -9,7 +9,7 @@
                     <div class="mb-3"><label class="form-label" for="name">Name</label><input id="name" formControlName="name" class="form-control" type="text" name="name" required/></div>
                     <div class="row">
                         <div class="col">
-                            <div class="mb-3"><label class="form-label" for="price">Price</label><input id="price" formControlName="price" class="form-control" type="number" name="price" required/></div>
+                            <div class="mb-3"><label class="form-label" for="price">Price</label><input id="price" formControlName="price" class="form-control" type="number" name="price" min="0" required/></div>
                         </div>
                         <div class="col">
                             <div class="mb-3">
@@ -20,8 +20,8 @@
                                     <mat-option value="appetizers">Appetizers</mat-option>
                                     <mat-option value="sides">Sides</mat-option>
                                     <mat-option value="entrees">Entrées</mat-option>
-                                    <mat-option value="desserts ">Desserts </mat-option>
-                                    <mat-option value="Beverages">beverages</mat-option>
+                                    <mat-option value="desserts">Desserts </mat-option>
+                                    <mat-option value="beverages">Beverages</mat-option>
                                 </mat-select>
                             </div>
                         </div>
