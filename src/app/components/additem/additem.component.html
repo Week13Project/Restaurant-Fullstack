@@ -1,7 +1,12 @@
 <section class="clean-block clean-form dark">
     <div class="container">
         <div class="block-heading">
-            <h2 class="text-info">Add Menu Item to</h2>
+            <div *ngIf="!editing">
+                <h2 class="text-info">Add Menu Item to {{r.name}}</h2>
+            </div>
+            <div *ngIf="editing">
+                <h2 class="text-info">Edit {{item.name}} at {{r.name}}</h2>
+            </div>
         </div>
         <div class="row">
             <div class="col">
@@ -42,7 +47,7 @@
                             Category is required.
                         </div>
                     </div>
-                    <div class="mb-3"><button class="btn btn-primary" type="submit" [disabled]="itemForm.invalid">Add</button></div>
+                    <div class="mb-3"><button class="btn btn-primary" type="submit" [disabled]="itemForm.invalid">{{action}}</button></div>
                 </form>
             </div>
             <div class="col-4 align-self-center">

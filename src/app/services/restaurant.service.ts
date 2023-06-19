@@ -18,17 +18,32 @@ export class RestaurantService {
     return this.http.get<Restaurant[]>(`${this.apiUrl}/restaurants`)
   }
 
+  public getRestaurantById(id:string|null): Observable<Restaurant> {
+    return this.http.get<Restaurant>(this.apiUrl+"/restaurants/"+id)
+  }
+
+  public getItemById(id:string|null): Observable<MenuItem> {
+    return this.http.get<MenuItem>(this.apiUrl+"/items/"+id)
+  }
+
   public getMenuByRestaurantId(id:string|null): Observable<MenuItem[]> {
     return this.http.get<MenuItem[]>(`${this.apiUrl}/${id}/items`)
   }
 
-  public deleteRestaurant(id : number): Observable<string> {
-    return this.http.delete<string>(`${this.apiUrl}/restaurants/${id}`);
+  public deleteRestaurant(id : number){
+    return this.http.delete(`${this.apiUrl}/restaurants/${id}`, { headers: this.headers, responseType: 'text'});
   }
   
-  public postItem(item:MenuItem) {
-    console.log(this.headers);
-    
+  public deleteItem(id : number) {
+    return this.http.delete(`${this.apiUrl}/items/${id}`, { headers: this.headers, responseType: 'text'});
+  }
+  
+  public postItem(item:MenuItem) { 
     return this.http.post(this.apiUrl+"/items", item, { headers: this.headers});
   }
+
+  public updateItem(item:MenuItem) {    
+    return this.http.put(this.apiUrl+"/items", item, { headers: this.headers});
+  }
+  
 }

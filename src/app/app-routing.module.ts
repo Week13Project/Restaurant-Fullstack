@@ -24,6 +24,10 @@ const routes: Routes = [
         component: AdditemComponent,
       },
       {
+        path: ':restaurantid/:itemid/edit',
+        component: AdditemComponent,
+      },
+      {
         path: ':restaurantid/menu',
         component: MenuComponent,
         children: [

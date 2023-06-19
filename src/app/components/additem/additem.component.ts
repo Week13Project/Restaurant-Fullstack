@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,11 +17,11 @@ export class AdditemComponent {
   
   control = new FormControl();
 
-  add:string = "Add";
   editing: boolean = false;
   editid:any;
   userid!:any;
   routeid:string|null;
+  action:string="Add";
 
   itemForm!: FormGroup;
   
@@ -31,29 +31,18 @@ export class AdditemComponent {
   
   constructor(private service: RestaurantService, public snackBar: MatSnackBar, private route: ActivatedRoute, private router: Router) {
     // this.userid = sessionStorage.getItem("userid");
+    this.item = new MenuItem();
+    this.r=new Restaurant();
     this.routeid = this.route.snapshot.paramMap.get('restaurantid');
     
     const headers = sessionStorage.getItem("headers");
+    
+    this.getRestaurant(this.routeid);
     
     if(headers == null){
       this.router.navigate(["/login"]);
     }
 
-    // this.service.findAll(this.userid).subscribe((data) => {
-    //   const t : Set<string> = new Set<string>();
-      
-    //   data.forEach(project => project.skills?.split(", ").forEach(s => t.add(s)));
-
-    //   this.tags = Array.from(t.values());
-    // });
-    // const urlreg = '(https?://)?([\\da-z.-]+)\\.([a-z.]{2,6})[/\\w .-]*/?';
-
-    this.editid = this.route.snapshot.paramMap.get('projectid');
-    
-    if(this.editid!==undefined&&this.editid!==null){
-      this.editing =true;
-      this.edit();
-    }
     this.itemForm = new FormGroup({
       name: new FormControl(this.item?.name, [
         Validators.required
@@ -67,10 +56,16 @@ export class AdditemComponent {
       description: new FormControl(this.item?.description),
       path: new FormControl(this.item?.path)
     });
+
+    this.editid = this.route.snapshot.paramMap.get('itemid');
     
-    this.itemForm.patchValue({path: "assets/img/food/hamburger.jpg"});
-    console.log(this.itemForm.value);
-    this.item=this.itemForm.value;
+    if(this.editid!==undefined&&this.editid!==null){
+      this.editing =true;
+      this.edit();
+    }else{
+      this.itemForm.patchValue({path: "assets/img/food/hamburger.jpg"});
+      this.item=this.itemForm.value;
+    }
     
   }
 
@@ -79,28 +74,36 @@ export class AdditemComponent {
   get category(): any { return this.itemForm.get('category');}
   get description(): any { return this.itemForm.get('description');}
   
+  getRestaurant(routeid: string | null) {
 
+    this.service.getRestaurantById(routeid).subscribe({
+      next: (response) => this.r=response,
+      error: (error) => console.log(error),
+    });
+  }
+  
   edit():void{
-    // this.add ="Edit";
+    this.action = "Edit";
 
-    // this.service.find(this.editid).subscribe({
-    //   next: (response) => 
-    //   this.itemForm.patchValue({
-    //     title: response.title,
-    //     skills: response.github,
-    //     github: response.github,
-    //     site: response.site,
-    //     description: response.description
-    //   }),
-    //   error: (error) => console.log(error),
-    // });
+    this.service.getItemById(this.editid).subscribe({
+      next: (response) => {
+        console.log(response);
+      this.itemForm.patchValue({
+        name: response.name,
+        price: response.price,
+        category: response.category,
+        description: response.description,
+        path: response.path
+      });
+      this.item=this.itemForm.value;
+      this.onChange();
+    },
+      error: (error) => console.log(error),
+    });
   }
 
   onChange() { 
     this.item=this.itemForm.value;
-    if(this.routeid!==null){
-      this.item.restaurantId = parseInt(this.routeid);
-    }
     console.log(this.item);
   } 
   
@@ -124,28 +127,37 @@ export class AdditemComponent {
  }
 
   onSubmit() { 
-      // if(this.editing){ 
-      //       this.service.update(this.itemForm.value, this.editid).subscribe({
-      //       next: (response) => {
-      //         this.openSnackBar("Project edit successfully");
-      //         this.router.navigate(["/main/projects/"+this.userid]);
-      //     },
-      //       error: (error) => this.openSnackBar("Project edit failed"),
-      //     });
-      //   } else {
-        
-          this.service.postItem(this.itemForm.value).subscribe({
-            next: (response) =>{ 
-              this.openSnackBar("Item posted successfully");
-              // this.router.navigate(["/main/projects/"+this.userid]);
-          },
-            error: (error) => {
-              console.log(error);
-              this.openSnackBar("Item posted failed");
-            },
-          });
-        // }        
+    this.item=this.itemForm.value;
+    if(this.routeid!==null){
+      this.item.restaurantId = parseInt(this.routeid);
     }
+    console.log(this.item);
+    
+      if(this.editing){ 
+        this.item.itemId=parseInt(this.editid);
+        console.log(this.item);
+        this.service.updateItem(this.item).subscribe({
+          next: (response) => {
+            this.openSnackBar("Item edit successfully");
+            this.router.navigate(["/home/"+this.r.restaurantId+"/menu"]);
+        },
+          error: (error) => this.openSnackBar("Item edit failed"),
+        });
+      } else {
+        this.service.postItem(this.item).subscribe({
+          next: (response) =>
+          { 
+            console.log(response);
+            this.openSnackBar("Item posted successfully");
+            this.router.navigate(["/home/"+this.r.restaurantId+"/menu"]);
+          },
+          error: (error) => {
+            console.log(error);
+            this.openSnackBar("Item posted failed");
+          },
+        });
+      }        
+  }
 
   openSnackBar(message: string) {
     this.snackBar.open(message, "OK", {
@@ -153,5 +165,5 @@ export class AdditemComponent {
     });
   }
 
-}
+} 
 

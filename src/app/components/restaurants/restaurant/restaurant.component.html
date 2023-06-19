@@ -1,0 +1,26 @@
+
+
+    <div *ngIf="shown" class="card">
+        <a class="img-card" routerLink="/home/{{restaurant.restaurantId}}/menu">
+        <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" />
+      </a>
+        <div class="card-content">
+            <div class="title-content">
+                <h4 class="card-title">
+                {{restaurant.name}}
+                </h4>
+                <h4 class="card-title">
+                    {{priceConversion(restaurant.price)}}
+                </h4>
+            </div>
+            <p class="">
+                --- restaurant info ---
+            </p>
+        </div>
+        <div *ngIf="isOwner" class="card-footer">
+            <div class="row">
+                <div class="col"><button class="btn btn-primary" type="button" (click)="editRestaurant(restaurant.name, restaurant.restaurantId!)">Edit</button></div>
+                <div class="col"><button class="btn btn-danger" type="button" (click)="deleteConfirm(restaurant.name, restaurant.restaurantId!)">Delete</button></div>
+            </div>
+        </div>
+    </div>

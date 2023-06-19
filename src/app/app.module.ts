@@ -19,6 +19,7 @@ import { UsersapiService } from './services/usersapi.service';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { AdditemComponent } from './components/additem/additem.component';
+import { RestaurantComponent } from './components/restaurants/restaurant/restaurant.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { AdditemComponent } from './components/additem/additem.component';
     LoginComponent,
     SignupComponent,
     RestaurantsComponent,
-    AdditemComponent
+    AdditemComponent,
+    RestaurantComponent
   ],
   imports: [
     BrowserModule,
