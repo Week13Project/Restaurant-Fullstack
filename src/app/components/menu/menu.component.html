@@ -4,14 +4,20 @@
             <h2 class="text-info">About Us</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
         </div>
-        <div class="row justify-content-center">
-            <app-menu-item 
-                *ngFor="let item of menu; let i = index;"
-                [index]=i
-                [item]="item"
-                class="col-lg-4 d-flex p-2"
-                >
-            </app-menu-item>
+        
+        <button class="btn btn-primary" routerLink="/home/{{routeid}}/add">Add Item</button>
+        <div *ngFor="let submenu of menu.list | keyvalue: orderOriginal; let i = index;">
+            <div *ngIf="submenu.value.length>0">
+                <h2 class="text-info">{{categories[i]}}</h2>
+                <div class="row justify-content-center">
+                    <app-menu-item 
+                        *ngFor="let item of submenu.value"
+                        [item]="item"
+                        class="col-lg-4 d-flex p-2"
+                        >
+                    </app-menu-item>
+                </div>
+            </div>
         </div>
     </div>
 </section>
