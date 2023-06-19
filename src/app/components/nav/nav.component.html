@@ -5,8 +5,8 @@
                 <li class="nav-item"><a class="nav-link active" href="index.html">Home</a></li>
                 <li class="nav-item"><a class="nav-link" href="features.html">Features</a></li>
                 <li class="nav-item"><a class="nav-link" href="pricing.html">Pricing</a></li>
-                <li class="nav-item"><a class="nav-link" href="about-us.html">About Us</a></li>
-                <li class="nav-item"><a class="nav-link" routerLink="/home/add">Add Item</a></li>
+                <li *ngIf="iSOwner" class="nav-item"><a class="nav-link" (click)="myRestaurants()">My Restaurants</a></li>
+                <!-- <li class="nav-item"><a class="nav-link" routerLink="/home/add">Add Item</a></li> -->
                 <li class="nav-item"><a class="nav-link" routerLink="/home/restaurants">restaurants</a></li>
                 <!-- <li class="nav-item"><a class="btn btn-primary" routerLink="/login">Log In</a></li> -->
             </ul>

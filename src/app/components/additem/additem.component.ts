@@ -30,7 +30,6 @@ export class AdditemComponent {
   public message: string;
   
   constructor(private service: RestaurantService, public snackBar: MatSnackBar, private route: ActivatedRoute, private router: Router) {
-    // this.userid = sessionStorage.getItem("userid");
     this.item = new MenuItem();
     this.r=new Restaurant();
     this.routeid = this.route.snapshot.paramMap.get('restaurantid');

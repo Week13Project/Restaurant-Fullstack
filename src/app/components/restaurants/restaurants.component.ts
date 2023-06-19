@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Restaurant } from '../../model/restaurant';
 import { RestaurantService } from 'src/app/services/restaurant.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-restaurants',
@@ -12,8 +13,32 @@ export class RestaurantsComponent {
   public restaurants: Restaurant[] = [];
   public disable: Restaurant;
 
-  constructor(private restaurantService: RestaurantService){
-    this.getRestaurants();
+  constructor(private restaurantService: RestaurantService, private route:ActivatedRoute){
+    const uid = sessionStorage.getItem("userid");
+    const routeid = this.route.snapshot.paramMap.get('ownerid');
+    
+    if(this.route.snapshot.routeConfig?.path==":ownerid/r/restaurants"&&routeid!=null){
+      this.OwnerRestaurants(routeid);
+    } else {
+      this.getRestaurants();
+    }
+  }
+
+  public OwnerRestaurants(id:string): void {
+    this.restaurantService.getRestaurantsByOwnerId(id).subscribe({
+
+      next: (response: Restaurant[]) => {
+        console.log(response);
+        for(const restaurant of response)
+        {
+          if(restaurant.disabled == false)
+          {
+            this.restaurants.push(restaurant)
+          }
+        }
+      },
+      error: (e) => alert(e.message)
+    })
   }
 
   public getRestaurants(): void {

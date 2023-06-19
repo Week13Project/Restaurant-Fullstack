@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Restaurant } from '../model/restaurant';
 import { Observable } from 'rxjs';
 import { MenuItem } from '../model/menu-item';
+import { strings } from '@material/radio';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +18,10 @@ export class RestaurantService {
   public getRestaurants(): Observable<Restaurant[]> {
     return this.http.get<Restaurant[]>(`${this.apiUrl}/restaurants`)
   }
+
+  public getRestaurantsByOwnerId(id:string): Observable<Restaurant[]> {
+      return this.http.get<Restaurant[]>(`${this.apiUrl}/restaurants/owner/${id}`)
+    }
 
   public getRestaurantById(id:string|null): Observable<Restaurant> {
     return this.http.get<Restaurant>(this.apiUrl+"/restaurants/"+id)

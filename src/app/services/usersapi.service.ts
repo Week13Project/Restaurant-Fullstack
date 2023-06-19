@@ -43,7 +43,9 @@ export class UsersapiService {
     const u:any = await this.http.get<User>(usernameURL+username, { headers: this.headers}).toPromise();
     uid = u.userId.toString();
     return uid;
-
+  }
+  public getUserById(id:string){
+    return this.http.get<User>(this.apiUrl+"users/id/"+id, { headers: this.headers});
   }
 
   public getUser(user: string){
