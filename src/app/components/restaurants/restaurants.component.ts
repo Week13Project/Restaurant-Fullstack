@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Restaurant } from '../../model/restaurant';
 import { RestaurantService } from 'src/app/services/restaurant.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
