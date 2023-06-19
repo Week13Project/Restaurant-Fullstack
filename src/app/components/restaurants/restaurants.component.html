@@ -17,12 +17,15 @@
                                     {{restaurant.name}}
                                     </h4>
                                     <h4 class="card-title">
-                                        ${{restaurant.price}}
+                                        {{priceConversion(restaurant.price)}}
                                     </h4>
                                 </div>
                                 <p class="">
                                     --- restaurant info ---
                                 </p>
+                            </div>
+                            <div>
+                                <button type=button class="btn btn-primary" (click)="deleteConfirm(restaurant.name, restaurant.restaurantId!)">Delete</button>
                             </div>
                         </div>
                     </div>

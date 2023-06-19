@@ -18,4 +18,8 @@ export class RestaurantService {
   public getMenuByRestaurantId(id:string|null): Observable<MenuItem[]> {
     return this.http.get<MenuItem[]>(`${this.apiUrl}/${id}/items`)
   }
+
+  public deleteRestaurant(id : number): Observable<string> {
+    return this.http.delete<string>(`${this.apiUrl}/restaurants/${id}`);
+  }
 }
