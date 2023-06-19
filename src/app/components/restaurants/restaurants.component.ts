@@ -8,7 +8,8 @@ import { RestaurantService } from 'src/app/services/restaurant.service';
   styleUrls: ['./restaurants.component.css']
 })
 export class RestaurantsComponent implements OnInit {
-  public restaurants: Restaurant[];
+  public restaurants: Restaurant[] = [];
+  public disable: Restaurant;
 
   constructor(private restaurantService: RestaurantService){
     this.getRestaurants();
@@ -45,12 +46,25 @@ export class RestaurantsComponent implements OnInit {
     // this.getRestaurants();
   }
 
+  public priceConversion(price: any) : string {
+    if(price <= 10) {return "$"}
+    if(price <= 25) {return "$$"}
+    if(price <= 50) {return "$$$"}
+    return "$$$$"
+  }
+
   public getRestaurants(): void {
     this.restaurantService.getRestaurants().subscribe({
 
       next: (response: Restaurant[]) => {
         console.log(response);
-        this.restaurants=response;
+        for(const restaurant of response)
+        {
+          if(restaurant.disabled == false)
+          {
+            this.restaurants.push(restaurant)
+          }
+        }
       },
       error: (e) => alert(e.message)
     })
@@ -71,4 +85,14 @@ export class RestaurantsComponent implements OnInit {
     }
   }
 
+  public deleteRestaurant(id: number): void {
+    this.restaurantService.deleteRestaurant(id);
+  }
+
+  public deleteConfirm(name : string, id : number) {
+    if(confirm("Are you sure you want to delete " + name))
+    {
+      this.restaurantService.deleteRestaurant(id);
+    }
+  }
 }

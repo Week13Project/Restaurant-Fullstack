@@ -22,6 +22,10 @@ export class RestaurantService {
     return this.http.get<MenuItem[]>(`${this.apiUrl}/${id}/items`)
   }
 
+  public deleteRestaurant(id : number): Observable<string> {
+    return this.http.delete<string>(`${this.apiUrl}/restaurants/${id}`);
+  }
+  
   public postItem(item:MenuItem) {
     console.log(this.headers);
     
