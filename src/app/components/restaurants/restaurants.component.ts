@@ -23,6 +23,10 @@ export class RestaurantsComponent {
       this.getRestaurants();
     }
   }
+  updateRestaurants(){
+    this.restaurants=[];
+    this.getRestaurants();
+  }
 
   public OwnerRestaurants(id:string): void {
     this.restaurantService.getRestaurantsByOwnerId(id).subscribe({

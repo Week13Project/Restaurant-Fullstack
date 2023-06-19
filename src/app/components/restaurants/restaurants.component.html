@@ -9,6 +9,7 @@
                     <!-- <div *ngFor="let restaurant of restaurants" class="col-xs-12 col-sm-4"> -->
                         <app-restaurant
                         *ngFor="let restaurant of restaurants"
+                        (updateRestaurants)="updateRestaurants()"
                          class="col-xs-12 col-sm-4"
                          [restaurant]="restaurant">
                         </app-restaurant>

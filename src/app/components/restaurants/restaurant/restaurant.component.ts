@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Restaurant } from 'src/app/model/restaurant';
 import { RestaurantService } from 'src/app/services/restaurant.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -9,10 +9,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   styleUrls: ['./restaurant.component.css']
 })
 export class RestaurantComponent implements OnInit {
-    @Input() restaurant: Restaurant;
-  shown:boolean =true;
+  @Input() restaurant: Restaurant;
   userid:number;
   isOwner:boolean=false;
+  @Output("updateRestaurants") updateRestaurants: EventEmitter<any> = new EventEmitter();
 
   constructor(private restaurantService: RestaurantService, public snackBar: MatSnackBar){
     const uid = sessionStorage.getItem("userid");
@@ -46,10 +46,10 @@ export class RestaurantComponent implements OnInit {
   public deleteConfirm(name : string, id : number) {
     if(confirm("Are you sure you want to delete " + name))
     {
-      this.shown=false;
       this.restaurantService.deleteRestaurant(id).subscribe({
         next: (response) => {
           console.log(response);
+          this.updateRestaurants.emit();
           this.openSnackBar(name+" deleted successfully");
         },
         error: (error) => {

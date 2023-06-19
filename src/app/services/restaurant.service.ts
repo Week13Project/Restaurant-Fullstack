@@ -47,8 +47,15 @@ export class RestaurantService {
     return this.http.post(this.apiUrl+"/items", item, { headers: this.headers});
   }
 
-  public updateItem(item:MenuItem) {    
+  public updateItem(item:MenuItem) {
     return this.http.put(this.apiUrl+"/items", item, { headers: this.headers});
+  }
+  
+  postRestaurant(restaurant: Restaurant) {
+    return this.http.post(this.apiUrl+"/restaurants", restaurant, { headers: this.headers});
+  }
+  updateRestaurant(restaurant: Restaurant) {
+    return this.http.put(this.apiUrl+"/restaurants", restaurant, { headers: this.headers});
   }
   
 }

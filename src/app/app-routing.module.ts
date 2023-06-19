@@ -6,6 +6,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { LoginComponent } from './components/login/login.component';
 import { RestaurantsComponent } from './components/restaurants/restaurants.component';
 import { AdditemComponent } from './components/additem/additem.component';
+import { AddrestaurantComponent } from './components/addrestaurant/addrestaurant.component';
 
 const routes: Routes = [
   {path: '' , redirectTo: 'home', pathMatch: 'full'},
@@ -26,6 +27,10 @@ const routes: Routes = [
       {
         path: ':restaurantid/add',
         component: AdditemComponent,
+      },
+      {
+        path: 'add/restaurant',
+        component: AddrestaurantComponent,
       },
       {
         path: ':restaurantid/:itemid/edit',

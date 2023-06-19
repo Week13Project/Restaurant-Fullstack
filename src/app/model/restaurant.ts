@@ -6,11 +6,12 @@ export class Restaurant {
     name: string;
     price: number;
     address?: string;
-    phone?: number;
+    phone?: string;
     disabled: boolean;
     created_at?: Time;
     removed_at?: Time;
-    constructor(){
-        this.name="Restaurant";
-    }
+    path: any;
+    // constructor(){
+    //     this.name="Restaurant";
+    // }
 }

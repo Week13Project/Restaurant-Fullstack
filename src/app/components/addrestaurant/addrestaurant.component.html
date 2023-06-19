@@ -1,0 +1,66 @@
+<section class="clean-block clean-form dark">
+    <div class="container">
+        <div class="block-heading">
+            <div *ngIf="!editing">
+                <h2 class="text-info">Add Restaurant</h2>
+            </div>
+            <div *ngIf="editing">
+                <h2 class="text-info">Edit {{restaurant.name}}</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <form method="post" [formGroup]="restaurantForm" (ngSubmit)="onSubmit()" (change)="onChange()">
+                    <div class="mb-3"><label class="form-label" for="name">Name</label><input id="name" formControlName="name" class="form-control" type="text" name="name" required/></div>
+                    
+                    <div class="row">
+                        <div class="col">
+                            <div class="mb-3"><label class="form-label" for="address">Address</label><input id="address" formControlName="address" class="form-control" type="address" name="address"/></div>
+                        </div>
+                        <div class="col">
+                            <div class="mb-3"><label class="form-label" for="phone">Phone</label><input id="phone" formControlName="phone" class="form-control" type="tel" name="phone"/></div>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label" for="category">Price</label>
+                            <!-- <input id="subject-1" class="form-control" type="text" name="subject" /> -->
+                    
+                        <mat-select id="price" formControlName="price" class="form-control" [formControl]="control" placeholder="Price" required>
+                            <mat-option value="10">$</mat-option>
+                            <mat-option value="25">$$</mat-option>
+                            <mat-option value="50">$$$</mat-option>
+                            <mat-option value="100">$$$$ </mat-option>
+                        </mat-select>
+                    </div>
+                    
+                    <div class="mb-3"><label class="form-label" for="img">Image</label><input id="img" class="form-control" #imgfile type="file" accept='image/*' (change)="handleUpload(imgfile.files)"/></div>
+
+                    <div class="mb-3"><label class="form-label" for="file">File</label><input id="file" class="form-control" #file type="file" accept='image/*' (change)="handleUpload(file.files)"/></div>
+
+                    <div *ngIf="restaurantForm.invalid && (name.touched&&price.touched&&address.touched&&phone.touched)" class="alert alert-danger">
+                        
+                        <div *ngIf="name.errors?.['required']&&name.touched">
+                            Name is required.
+                        </div>
+                        <!-- <div *ngIf="address.errors?.['required']&&address.touched">
+                            Address is required.
+                        </div>
+                        <div *ngIf="phone.errors?.['required']&&phone.touched">
+                            Phone number is required.
+                        </div> -->
+                        <div *ngIf="price.errors?.['required']&&price.touched">
+                            Price is required.
+                        </div>
+                    </div>
+                    <div class="mb-3"><button class="btn btn-primary" type="submit" [disabled]="restaurantForm.invalid">{{action}}</button></div>
+                </form>
+            </div>
+            <div class="col-4 align-self-center">
+                <!-- <app-menu-item 
+                    [index]=1
+                    [item]=this.item>
+                </app-menu-item> -->
+            </div>
+        </div>
+    </div>
+</section>

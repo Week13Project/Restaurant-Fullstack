@@ -20,6 +20,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { AdditemComponent } from './components/additem/additem.component';
 import { RestaurantComponent } from './components/restaurants/restaurant/restaurant.component';
+import { AddrestaurantComponent } from './components/addrestaurant/addrestaurant.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { RestaurantComponent } from './components/restaurants/restaurant/restaur
     SignupComponent,
     RestaurantsComponent,
     AdditemComponent,
-    RestaurantComponent
+    RestaurantComponent,
+    AddrestaurantComponent
   ],
   imports: [
     BrowserModule,
