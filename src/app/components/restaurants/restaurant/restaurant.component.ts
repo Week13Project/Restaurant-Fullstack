@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Restaurant } from 'src/app/model/restaurant';
 import { RestaurantService } from 'src/app/services/restaurant.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-restaurant',
@@ -14,7 +15,7 @@ export class RestaurantComponent implements OnInit {
   isOwner:boolean=false;
   @Output("updateRestaurants") updateRestaurants: EventEmitter<any> = new EventEmitter();
 
-  constructor(private restaurantService: RestaurantService, public snackBar: MatSnackBar){
+  constructor(private restaurantService: RestaurantService, private router: Router, public snackBar: MatSnackBar){
     const uid = sessionStorage.getItem("userid");
     if(uid!=null){
       this.userid=parseInt(uid);
@@ -36,7 +37,9 @@ export class RestaurantComponent implements OnInit {
     return "$$$$"
   }
 
-  editRestaurant(name : string, id : number) {
+  editRestaurant(id : number) {
+    const link = "home/"+id+"/r/edit"
+    this.router.navigate([link]);
   }
 
   public deleteRestaurant(id: number): void {

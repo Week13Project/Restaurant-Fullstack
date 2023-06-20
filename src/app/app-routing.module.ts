@@ -29,8 +29,12 @@ const routes: Routes = [
         component: AdditemComponent,
       },
       {
-        path: 'add/restaurant',
+        path: ':restaurantid/r/edit',
         component: AddrestaurantComponent,
+      },
+      {
+        path: ':itemid/edit',
+        component: AdditemComponent,
       },
       {
         path: ':restaurantid/:itemid/edit',

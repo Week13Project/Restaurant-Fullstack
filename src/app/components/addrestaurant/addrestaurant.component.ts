@@ -56,7 +56,8 @@ export class AddrestaurantComponent {
       path: new FormControl(this.restaurant?.path)
     });
 
-    this.editid = this.route.snapshot.paramMap.get('itemid');
+    this.editid = this.route.snapshot.paramMap.get('restaurantid');
+    console.log(this.editid);
     
     if(this.editid!==undefined&&this.editid!==null){
       this.editing =true;
@@ -84,14 +85,14 @@ export class AddrestaurantComponent {
   edit():void{
     this.action = "Edit";
 
-    this.service.getItemById(this.editid).subscribe({
+    this.service.getRestaurantById(this.editid).subscribe({
       next: (response) => {
         console.log(response);
       this.restaurantForm.patchValue({
         name: response.name,
-        price: response.price,
-        category: response.category,
-        description: response.description,
+        address: response.address,
+        phone: response.phone,
+        price: response.price.toString(),
         path: response.path
       });
       this.restaurant=this.restaurantForm.value;

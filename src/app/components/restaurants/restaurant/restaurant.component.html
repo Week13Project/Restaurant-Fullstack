@@ -19,7 +19,7 @@
         </div>
         <div *ngIf="isOwner" class="card-footer">
             <div class="row">
-                <div class="col"><button class="btn btn-primary" type="button" (click)="editRestaurant(restaurant.name, restaurant.restaurantId!)">Edit</button></div>
+                <div class="col"><button class="btn btn-primary" type="button" (click)="editRestaurant(restaurant.restaurantId!)">Edit</button></div>
                 <div class="col"><button class="btn btn-danger" type="button" (click)="deleteConfirm(restaurant.name, restaurant.restaurantId!)">Delete</button></div>
             </div>
         </div>
