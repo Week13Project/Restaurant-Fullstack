@@ -28,14 +28,14 @@ body {
 img{
   object-fit: cover;
   object-position: center;
-  /* width: 295px;
-  height: 180px; */
+  width: 295px;
+  height: 175px;
 }
 
 .flip-card {
   background-color: transparent;
-  /* width: 295px;
-  height: 180px; */
+  width: 295px;
+  height: 175px;
   perspective: 1000px;
   border-radius: var(--bs-card-inner-border-radius);
 }
@@ -69,7 +69,7 @@ img{
 }
 
 .flip-card-front {
-  background-color: #bbb;
+  background-color: #e9cfad;
   color: black;
 }
 

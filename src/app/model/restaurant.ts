@@ -10,7 +10,8 @@ export class Restaurant {
     disabled: boolean;
     created_at?: Time;
     removed_at?: Time;
-    path: any;
+    imgPath: any;
+    filePath: any;
     // constructor(){
     //     this.name="Restaurant";
     // }

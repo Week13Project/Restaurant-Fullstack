@@ -29,6 +29,10 @@ const routes: Routes = [
         component: AdditemComponent,
       },
       {
+        path: 'add/restaurant',
+        component: AddrestaurantComponent,
+      },
+      {
         path: ':restaurantid/r/edit',
         component: AddrestaurantComponent,
       },

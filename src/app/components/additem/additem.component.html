@@ -10,7 +10,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <form method="post" [formGroup]="itemForm" (ngSubmit)="onSubmit()" (change)="onChange()">
+                <form method="post" [formGroup]="itemForm" (ngSubmit)="onSubmit()" (change)="onChange()" enctype="multipart/form-data">
                     <div class="mb-3"><label class="form-label" for="name">Name</label><input id="name" formControlName="name" class="form-control" type="text" name="name" required/></div>
                     <div class="row">
                         <div class="col">

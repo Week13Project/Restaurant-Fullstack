@@ -13,6 +13,7 @@ import { RestaurantService } from 'src/app/services/restaurant.service';
 })
 export class MenuComponent implements OnInit {
   restaurant:Restaurant;
+  items: MenuItem[] = [];
   menu:Menulist;
   index:number;
   routeid:string|null;
@@ -40,11 +41,28 @@ export class MenuComponent implements OnInit {
         }
       },
     });
+    
   }
+
+  updateMenu(){
+    this.items=[];
+    this.menu= new Menulist();
+    this.getMenu(this.routeid);
+  }
+
   public getMenu(id:string|null): void {
     this.service.getMenuByRestaurantId(id).subscribe({
       next: (response: MenuItem[]) => {
-        this.subMenus(response);
+        console.log(response);
+        for(const item of response)
+        {
+          if(item.disabled == false)
+          {
+            this.items.push(item);
+          }
+        }
+        console.log(this.items);
+        this.subMenus(this.items);
       },
     });
   }
