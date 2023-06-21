@@ -58,8 +58,8 @@ export class RestaurantService {
     return this.http.put(this.apiUrl+"/restaurants", restaurant, { headers: this.headers});
   }
   
-  public postFile(file: any) {
-    return this.http.post(this.apiUrl+"/upload", file, { headers: this.headers, responseType: 'text'});
+  public postFile(file: any,type:string) {
+    return this.http.post(this.apiUrl+"/upload/"+type, file, { headers: this.headers, responseType: 'text'});
   }
   
 }

@@ -6,7 +6,7 @@ export class Menulist {
   categories:string[];
 
   constructor(){
-    this.categories=["Appetizers","Entrees","Sides","Desserts","Beverages","Other"];
+    this.categories=["Appetizers","Entrées","Sides","Desserts","Beverages","Other"];
 
     this.list = {
             0: new Array(),    

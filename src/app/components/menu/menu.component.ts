@@ -36,6 +36,8 @@ export class MenuComponent implements OnInit {
     this.service.getRestaurantById(id).subscribe({
       next: (response: Restaurant) => {
         console.log(response);
+        this.restaurant=response;
+        console.log(this.restaurant.filePath);
         if(response.owner==this.userid){
           this.isOwner=true;
         }

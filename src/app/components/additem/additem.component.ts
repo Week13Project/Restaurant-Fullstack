@@ -135,8 +135,14 @@ export class AdditemComponent {
  }
   imageUpload(){
     const file = new FormData(); 
-    const name: string = this.routeid+"/"+getRandomInt()+".jpg";
+    var itemId;
+    var name: string;
     const bucketUrl: string = "https://rfsp.s3.us-east-2.amazonaws.com/";
+
+    itemId=(this.editid!=null) ? this.editid : getRandomInt();
+
+    
+    var name: string = this.routeid+"/"+itemId+".jpg";
     
     console.log(name);
     file.append('file', this.imagePath, name);
@@ -149,7 +155,7 @@ export class AdditemComponent {
     this.item=this.itemForm.value;
     console.log(this.item);
 
-    this.service.postFile(file).subscribe({
+    this.service.postFile(file,"jpg").subscribe({
       next: (response) => 
       console.log("Uploaded Successfully."),
       error: (error) => 
@@ -158,6 +164,7 @@ export class AdditemComponent {
   }
   onSubmit() { 
     this.item=this.itemForm.value;
+
     if(this.isFiles){
           console.log("this.imageUpload()");
       this.imageUpload();

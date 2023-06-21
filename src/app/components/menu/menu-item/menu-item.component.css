@@ -29,7 +29,12 @@ img{
   object-fit: cover;
   object-position: center;
   width: 295px;
+}
+.admin img{
   height: 175px;
+}
+.user-view img{
+  height: 180px;
 }
 
 .flip-card {
@@ -69,8 +74,11 @@ img{
 }
 
 .flip-card-front {
-  background-color: #e9cfad;
+  /* background-color: #e9cfad; */
   color: black;
+}
+.no-img {
+  background-color: #e9cfad;
 }
 
 .flip-card-back {
