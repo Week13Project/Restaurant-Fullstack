@@ -31,6 +31,7 @@ export class AddrestaurantComponent {
   imgURL: any;
   public message: string;
   previewImg: string | ArrayBuffer | null;
+  isImages: boolean;
   
   constructor(private service: RestaurantService, public snackBar: MatSnackBar, private route: ActivatedRoute, private router: Router) {
     this.restaurant=new Restaurant();
@@ -131,7 +132,7 @@ export class AddrestaurantComponent {
     if (files.length === 0){
       return;
     } else {
-      this.isFiles =true;
+      this.isImages =true;
     }
  
     var mimeType = files[0].type;
@@ -158,8 +159,11 @@ export class AddrestaurantComponent {
 
   handleFileUpload(files:any):void{
     var path:any;
-    if (files.length === 0)
+    if (files.length === 0){
       return;
+    } else {
+      this.isFiles =true;
+    }
 
     var mimeType = files[0].type;
     if (mimeType.match(/application\/*/) == null) {
@@ -199,7 +203,7 @@ export class AddrestaurantComponent {
   }
   onSubmit() { 
     this.restaurant=this.restaurantForm.value;
-    if(this.isFiles){
+    if(this.isImages){
       this.upload(this.imagePath,".jpg");
       this.restaurant.imgPath=this.bucketUrl+this.routeid+"/"+this.restaurant.name+".jpg"
       console.log(this.restaurant);
@@ -208,7 +212,9 @@ export class AddrestaurantComponent {
     } else {
       this.restaurant.imgPath="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80";
     }
-    this.upload(this.restaurantForm.value.filePath,".pdf");
+    if(this.isFiles){
+      this.upload(this.restaurantForm.value.filePath,".pdf");
+    }
     this.restaurant.filePath=this.bucketUrl+this.routeid+"/"+this.restaurant.name+".pdf"
 
     if(this.routeid!==null){
