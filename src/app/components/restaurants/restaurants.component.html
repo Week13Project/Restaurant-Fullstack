@@ -2,9 +2,11 @@
     <div class="container-fostrap">
         <div class="content">
             <div class="container">
-                <form class="form-inline input-group">
-                    <input class="form-control input-sm mr-sm-2" type="search" (ngModelChange)="searchRestaurants(search.value)" #search="ngModel" ngModel name = "search" placeholder="search" aria-label="Search">
-                </form>
+                <div>
+                    <form class="form-inline input-group">
+                        <input class="form-control input-sm mr-sm-2" type="search" (ngModelChange)="searchRestaurants(search.value)" #search="ngModel" ngModel name = "search" placeholder="search" aria-label="Search">
+                    </form>
+                </div>
                 <div class="row">
                     <!-- <div *ngFor="let restaurant of restaurants" class="col-xs-12 col-sm-4"> -->
                         <app-restaurant

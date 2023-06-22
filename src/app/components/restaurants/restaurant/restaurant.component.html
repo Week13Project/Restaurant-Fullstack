@@ -14,7 +14,10 @@
                 </h4>
             </div>
             <p class="">
-                --- restaurant info ---
+                <a href="tel:{{restaurant.phone}}"> <i class="bi bi-telephone-outbound-fill"></i>{{restaurant.phone}}</a>
+            <br>
+                <i class="bi bi-house-fill"></i>
+                {{restaurant.address}}
             </p>
         </div>
         <div *ngIf="isOwner" class="card-footer">
