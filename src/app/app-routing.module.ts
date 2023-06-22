@@ -33,6 +33,14 @@ const routes: Routes = [
         component: AddrestaurantComponent,
       },
       {
+        path: ':restaurantid/r/edit',
+        component: AddrestaurantComponent,
+      },
+      {
+        path: ':itemid/edit',
+        component: AdditemComponent,
+      },
+      {
         path: ':restaurantid/:itemid/edit',
         component: AdditemComponent,
       },

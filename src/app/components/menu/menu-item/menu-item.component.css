@@ -12,30 +12,35 @@ body {
 }
 
 .admin{
-  width: 295px;
-  height: 235px;
+  min-width: 295px;
+  min-height: 235px;
 }
 
 .user-view{
-  width: 295px;
-  height: 180px;
+  min-width: 295px;
+  min-height: 180px;
 }
 
 .card-footer{
-  height: 60px;
+  min-height: 60px;
 }
   
 img{
   object-fit: cover;
   object-position: center;
-  /* width: 295px;
-  height: 180px; */
+  width: 295px;
+}
+.admin img{
+  height: 175px;
+}
+.user-view img{
+  height: 180px;
 }
 
 .flip-card {
   background-color: transparent;
-  /* width: 295px;
-  height: 180px; */
+  width: 295px;
+  height: 175px;
   perspective: 1000px;
   border-radius: var(--bs-card-inner-border-radius);
 }
@@ -69,8 +74,11 @@ img{
 }
 
 .flip-card-front {
-  background-color: #bbb;
+  /* background-color: #e9cfad; */
   color: black;
+}
+.no-img {
+  background-color: #e9cfad;
 }
 
 .flip-card-back {

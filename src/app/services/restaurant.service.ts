@@ -51,11 +51,15 @@ export class RestaurantService {
     return this.http.put(this.apiUrl+"/items", item, { headers: this.headers});
   }
   
-  postRestaurant(restaurant: Restaurant) {
+  public postRestaurant(restaurant: Restaurant) {
     return this.http.post(this.apiUrl+"/restaurants", restaurant, { headers: this.headers});
   }
-  updateRestaurant(restaurant: Restaurant) {
+  public updateRestaurant(restaurant: Restaurant) {
     return this.http.put(this.apiUrl+"/restaurants", restaurant, { headers: this.headers});
+  }
+  
+  public postFile(file: any,type:string) {
+    return this.http.post(this.apiUrl+"/upload/"+type, file, { headers: this.headers, responseType: 'text'});
   }
   
 }

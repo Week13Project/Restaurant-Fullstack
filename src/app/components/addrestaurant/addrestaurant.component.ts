@@ -12,6 +12,8 @@ import { RestaurantService } from 'src/app/services/restaurant.service';
   styleUrls: ['./addrestaurant.component.css']
 })
 export class AddrestaurantComponent {
+  bucketUrl: string = "https://rfsp.s3.us-east-2.amazonaws.com/";
+
   restaurant:Restaurant;
   
   control = new FormControl();
@@ -21,20 +23,22 @@ export class AddrestaurantComponent {
   userid!:any;
   routeid:string|null;
   action:string="Add";
+  isFiles: boolean;
 
   restaurantForm!: FormGroup;
   
   public imagePath: any;
   imgURL: any;
   public message: string;
+  previewImg: string | ArrayBuffer | null;
+  isImages: boolean;
   
   constructor(private service: RestaurantService, public snackBar: MatSnackBar, private route: ActivatedRoute, private router: Router) {
     this.restaurant=new Restaurant();
+    this.routeid = this.route.snapshot.paramMap.get('restaurantid');
     
     const headers = sessionStorage.getItem("headers");
     this.userid = sessionStorage.getItem("userid");
-    
-    // this.getRestaurant(this.routeid);
     
     if(headers == null){
       this.router.navigate(["/login"]);
@@ -45,25 +49,29 @@ export class AddrestaurantComponent {
         Validators.required
       ]),
       address: new FormControl(this.restaurant?.address, [
-        // Validators.required
+        Validators.required
       ]),
       phone: new FormControl(this.restaurant?.phone, [
-        // Validators.required
+        Validators.required
       ]),
       price: new FormControl(this.restaurant?.price, [
         Validators.required
       ]),
-      path: new FormControl(this.restaurant?.path)
+      imgPath: new FormControl(this.restaurant?.imgPath),
+      filePath: new FormControl(this.restaurant?.filePath, [
+        Validators.required
+      ]),
     });
+    
+    this.previewImg="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80";
+    this.restaurant.imgPath=this.previewImg;
 
-    this.editid = this.route.snapshot.paramMap.get('itemid');
+    this.editid = this.route.snapshot.paramMap.get('restaurantid');
+    console.log(this.editid);
     
     if(this.editid!==undefined&&this.editid!==null){
       this.editing =true;
       this.edit();
-    }else{
-      this.restaurantForm.patchValue({path: "assets/img/food/hamburger.jpg"});
-      this.restaurant=this.restaurantForm.value;
     }
     
   }
@@ -72,29 +80,41 @@ export class AddrestaurantComponent {
   get address(): any { return this.restaurantForm.get('address');}
   get phone(): any { return this.restaurantForm.get('phone');}
   get price(): any { return this.restaurantForm.get('price');}
-  
-  // getRestaurant(routeid: string | null) {
-
-  //   this.service.getRestaurantById(routeid).subscribe({
-  //     next: (response) => this.r=response,
-  //     error: (error) => console.log(error),
-  //   });
-  // }
+  get docfile(): any { return this.restaurantForm.get('filePath');}
   
   edit():void{
     this.action = "Edit";
 
-    this.service.getItemById(this.editid).subscribe({
+    this.restaurantForm = new FormGroup({
+      name: new FormControl(this.restaurant?.name, [
+        Validators.required
+      ]),
+      address: new FormControl(this.restaurant?.address, [
+        Validators.required
+      ]),
+      phone: new FormControl(this.restaurant?.phone, [
+        Validators.required
+      ]),
+      price: new FormControl(this.restaurant?.price, [
+        Validators.required
+      ]),
+      imgPath: new FormControl(this.restaurant?.imgPath),
+      filePath: new FormControl(this.restaurant?.filePath),
+    });
+
+    this.service.getRestaurantById(this.editid).subscribe({
       next: (response) => {
         console.log(response);
       this.restaurantForm.patchValue({
         name: response.name,
-        price: response.price,
-        category: response.category,
-        description: response.description,
-        path: response.path
+        address: response.address,
+        phone: response.phone,
+        price: response.price.toString(),
+        imgPath: response.imgPath
       });
       this.restaurant=this.restaurantForm.value;
+      this.previewImg=this.restaurant.imgPath;
+      
       this.onChange();
     },
       error: (error) => console.log(error),
@@ -103,12 +123,17 @@ export class AddrestaurantComponent {
 
   onChange() { 
     this.restaurant=this.restaurantForm.value;
+    this.restaurant.imgPath = this.previewImg;
     console.log(this.restaurant);
   } 
   
-  handleUpload(files:any):void{
-    if (files.length === 0)
+  handleImageUpload(files:any):void{
+    var path:any;
+    if (files.length === 0){
       return;
+    } else {
+      this.isImages =true;
+    }
  
     var mimeType = files[0].type;
     if (mimeType.match(/image\/*/) == null) {
@@ -116,17 +141,86 @@ export class AddrestaurantComponent {
       return;
     }
  
+    // var reader = new FileReader();
+    // path = files[0];
+    // this.restaurantForm.patchValue({
+    //   imgPath: path
+    // });
+ 
     var reader = new FileReader();
     this.imagePath = files[0];
+    
     reader.readAsDataURL(files[0]); 
     reader.onload = (_event) => { 
-      this.restaurant.path = reader.result;
+      this.previewImg = reader.result;
+      this.restaurant.imgPath = reader.result;
+    }
+  }
+
+  handleFileUpload(files:any):void{
+    var path:any;
+    if (files.length === 0){
+      return;
+    } else {
+      this.isFiles =true;
     }
 
- }
+    var mimeType = files[0].type;
+    if (mimeType.match(/application\/*/) == null) {
+      this.message = "Only PDFs or DOC files are supported.";
+      return;
+    }
 
+    var reader = new FileReader();
+    path = files[0];
+    this.restaurantForm.patchValue({
+      filePath: path
+    });
+
+  }
+  upload(filePath:any,itemId:any, ext:string){
+    const file = new FormData(); 
+    const name: string = itemId+"/restaurant."+ext;
+    // const bucketUrl: string = "https://rfsp.s3.us-east-2.amazonaws.com/";
+    
+    console.log(name);
+    file.append('file', filePath, name);
+    
+    this.restaurantForm.patchValue({
+      path: this.bucketUrl+name
+    });
+
+    // console.log(this.restaurantForm.value);
+    // this.restaurant=this.restaurantForm.value;
+    // console.log(this.restaurant);
+
+    this.service.postFile(file,ext).subscribe({
+      next: (response) => 
+    console.log("Uploaded "+name+" Successfully."),
+      error: (error) => 
+      console.log("Uploaded "+name+" Failed."),
+    });
+  }
   onSubmit() { 
+    const defaultImg:string="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80";
+    var itemId;
+    itemId=(this.routeid!=null) ? this.routeid : getRandomInt();
+    
     this.restaurant=this.restaurantForm.value;
+
+    if(this.isImages){
+      this.upload(this.imagePath,itemId,"jpg");
+      this.restaurant.imgPath=this.bucketUrl+itemId+"/restaurant.jpg"
+      console.log(this.restaurant);
+    }else if(this.previewImg!==undefined){
+      this.restaurant.imgPath=this.previewImg;
+    } else {
+      this.restaurant.imgPath=defaultImg}
+    if(this.isFiles){
+      this.upload(this.restaurantForm.value.filePath,itemId,"pdf");
+    }
+    this.restaurant.filePath=this.bucketUrl+itemId+"/restaurant.pdf"
+
     if(this.routeid!==null){
       this.restaurant.restaurantId = parseInt(this.routeid);
     }
@@ -140,7 +234,7 @@ export class AddrestaurantComponent {
         this.service.updateRestaurant(this.restaurant).subscribe({
           next: (response) => {
             this.openSnackBar("Restaurant edit successfully");
-            // this.router.navigate(["/home/"+this.r.restaurantId+"/menu"]);
+            this.router.navigate(["/home/"+this.userid+"/r/restaurants"]);
         },
           error: (error) => this.openSnackBar("Restaurant edit failed"),
         });
@@ -150,7 +244,7 @@ export class AddrestaurantComponent {
           { 
             console.log(response);
             this.openSnackBar("Restaurant posted successfully");
-            // this.router.navigate(["/home/"+this.r.restaurantId+"/menu"]);
+            this.router.navigate(["/home/"+this.userid+"/r/restaurants"]);
           },
           error: (error) => {
             console.log(error);
@@ -167,4 +261,8 @@ export class AddrestaurantComponent {
   }
 
 } 
+function getRandomInt() {
+  const max:number =99999;
+  return Math.floor(Math.random() * max);
+}
 

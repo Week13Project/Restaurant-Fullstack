@@ -8,4 +8,5 @@ export class MenuItem {
     category: string;
     description: string;
     path: any;
+    disabled: boolean;
 }

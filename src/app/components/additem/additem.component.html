@@ -10,7 +10,7 @@
         </div>
         <div class="row">
             <div class="col">
-                <form method="post" [formGroup]="itemForm" (ngSubmit)="onSubmit()" (change)="onChange()">
+                <form method="post" [formGroup]="itemForm" (ngSubmit)="onSubmit()" (change)="onChange()" enctype="multipart/form-data">
                     <div class="mb-3"><label class="form-label" for="name">Name</label><input id="name" formControlName="name" class="form-control" type="text" name="name" required/></div>
                     <div class="row">
                         <div class="col">
@@ -24,7 +24,7 @@
                                 <mat-select id="category" formControlName="category" class="form-control" [formControl]="control" placeholder="Category" required>
                                     <mat-option value="appetizers">Appetizers</mat-option>
                                     <mat-option value="sides">Sides</mat-option>
-                                    <mat-option value="entrees">Entrées</mat-option>
+                                    <mat-option value="entrées">Entrées</mat-option>
                                     <mat-option value="desserts">Desserts </mat-option>
                                     <mat-option value="beverages">Beverages</mat-option>
                                 </mat-select>
