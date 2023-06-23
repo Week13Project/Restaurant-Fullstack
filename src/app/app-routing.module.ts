@@ -9,7 +9,7 @@ import { AdditemComponent } from './components/additem/additem.component';
 import { AddrestaurantComponent } from './components/addrestaurant/addrestaurant.component';
 
 const routes: Routes = [
-  {path: '' , redirectTo: 'home', pathMatch: 'full'},
+  {path: '' , redirectTo: 'home/restaurants', pathMatch: 'full'},
   {path: 'login', component:LoginComponent},
   {path: 'signup', component: SignupComponent},
   {path: 'home', redirectTo: 'home/restaurants'},
