@@ -12,10 +12,12 @@ import { ActivatedRoute } from '@angular/router';
 export class RestaurantsComponent {
   public restaurants: Restaurant[] = [];
   public disable: Restaurant;
+  public routeId: string | null;
 
   constructor(private restaurantService: RestaurantService, private route:ActivatedRoute){
     const uid = sessionStorage.getItem("userid");
     const routeid = this.route.snapshot.paramMap.get('ownerid');
+    this.routeId = this.route.snapshot.paramMap.get('ownerid');
     
     if(this.route.snapshot.routeConfig?.path==":ownerid/r/restaurants"&&routeid!=null){
       this.OwnerRestaurants(routeid);
@@ -73,7 +75,12 @@ export class RestaurantsComponent {
     this.restaurants = searchResult;
     if(searchResult.length == 0 || !search)
     {
-      this.getRestaurants();
+      this.restaurants = [];
+      if(this.route.snapshot.routeConfig?.path==":ownerid/r/restaurants"&&this.routeId!=null){
+        this.OwnerRestaurants(this.routeId);
+      } else {
+        this.getRestaurants();
+      }
     }
   }
 }
