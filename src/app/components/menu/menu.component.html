@@ -1,7 +1,7 @@
 <section class="clean-block about-us">
     <div class="container">
         <div class="block-heading">
-            <div class="hero-image" [style.background]="'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(' + restaurant.imgPath + ') no-repeat center center fixed'">
+            <div class="hero-image" [style.background]="'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(' + restaurant.imgPath + ') no-repeat center center'">
                 <div class="hero-text">
                     <h1 style="font-size:50px">{{restaurant.name}}</h1>
                     <div class="row p-4">
@@ -31,7 +31,11 @@
             <!-- <img class="card-img w-100" [src]="restaurant.imgPath" /> -->
         </div>
         
-        <button *ngIf="isOwner" class="btn btn-primary" routerLink="/home/{{routeid}}/add">Add Item</button>
+        <div class="row justify-content-center">
+            <div class="col d-flex p-2 justify-content-center">
+                <button *ngIf="isOwner" class="btn btn-primary w-50" routerLink="/home/{{routeid}}/add">Add Item</button>
+            </div>
+        </div>
         <div *ngFor="let submenu of menu.list | keyvalue: orderOriginal; let i = index;">
             <div *ngIf="submenu.value.length>0">
                 <h2 class="text-info">{{categories[i]}}</h2>

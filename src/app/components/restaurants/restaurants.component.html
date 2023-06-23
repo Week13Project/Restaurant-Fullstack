@@ -1,12 +1,22 @@
 <section class="wrapper">
-    <div class="container-search">
-        <form class="form-inline input-group">
-            <input class="form-control input-sm mr-sm-2" type="search" (ngModelChange)="searchRestaurants(search.value)" #search="ngModel" ngModel name = "search" placeholder="search" aria-label="Search">
-        </form>
-    </div>
+    <!-- <div class="container-search">        
+    </div> -->
     <div class="container-fostrap">
         <div class="content">
             <div class="container">
+                <div class="row justify-content-center p-2">
+                    <div class="col offset-md-8 d-flex p-2 justify-content-center">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                              <span class="input-group-text" id="search-ig">Search</span>
+                            </div>
+                                <input aria-describedby="search-ig" class="form-control input-sm mr-sm-2 w-50" type="search" (ngModelChange)="searchRestaurants(search.value)" #search="ngModel" ngModel name = "search" placeholder="search" aria-label="Search">
+                          </div>
+                <!-- <form class="form-inline input-group">
+                    <input class="form-control input-sm mr-sm-2 w-50" type="search" (ngModelChange)="searchRestaurants(search.value)" #search="ngModel" ngModel name = "search" placeholder="search" aria-label="Search">
+                </form> -->
+                    </div>
+                </div>
                 <div class="row">
                     <!-- <div *ngFor="let restaurant of restaurants" class="col-xs-12 col-sm-4"> -->
                         <app-restaurant
