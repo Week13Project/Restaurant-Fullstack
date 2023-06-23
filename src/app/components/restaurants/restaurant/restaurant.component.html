@@ -33,15 +33,9 @@
                     <p>{{restaurant.address}}</p>
                 </div>
                 <div class="col">
-                    <p>{{restaurant.phone}}</p>
+                    <a href="tel:{{restaurant.phone}}">{{restaurant.phone}}</a>
                 </div>
             </div>
-            <p class="">
-                <a href="tel:{{restaurant.phone}}"> <i class="bi bi-telephone-outbound-fill"></i>{{restaurant.phone}}</a>
-            <br>
-                <i class="bi bi-house-fill"></i>
-                {{restaurant.address}}
-            </p>
         </div>
         <div *ngIf="isOwner" class="card-footer">
             <div class="row">

@@ -1,8 +1,6 @@
 <section class="clean-block about-us">
     <div class="container">
         <div class="block-heading">
-            
-
             <div class="hero-image" [style.background]="'linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(' + restaurant.imgPath + ') no-repeat center center fixed'">
                 <div class="hero-text">
                     <h1 style="font-size:50px">{{restaurant.name}}</h1>
@@ -25,14 +23,12 @@
                               </svg></p>
                         </div>
                         <div class="col-lg-10">
-                            <p>{{restaurant.phone}}</p>
+                            <a href="tel:{{restaurant.phone}}" style="color: white; text-decoration: none;">{{restaurant.phone}}</a>
                         </div>
                     </div>
                 </div>
             </div>
             <!-- <img class="card-img w-100" [src]="restaurant.imgPath" /> -->
-            <h2 class="text-info"></h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc quam urna, dignissim nec auctor in, mattis vitae leo.</p>
         </div>
         
         <button *ngIf="isOwner" class="btn btn-primary" routerLink="/home/{{routeid}}/add">Add Item</button>
