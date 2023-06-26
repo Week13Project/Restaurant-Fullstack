@@ -12,7 +12,19 @@ export class RestaurantService {
   apiUrl: string = "http://localhost:9080";
   headers:any;
   constructor(private http: HttpClient) { 
-    this.headers = new HttpHeaders({Authorization: 'Basic '+sessionStorage.getItem("headers")});
+    // this.headers = new HttpHeaders({Authorization: 'Basic '+sessionStorage.getItem("headers")});
+    // console.log(this.headers);
+  }  
+  
+  public getHeader(headers:HttpHeaders): void {
+    this.headers=headers;
+    // this.headers = new HttpHeaders({Authorization: 'Basic '+sessionStorage.getItem("headers")});
+    console.log(this.headers);
+  }
+
+  public removeHeader(): void {
+    this.headers = new HttpHeaders();
+    console.log(this.headers);
   }
 
   public getRestaurants(): Observable<Restaurant[]> {

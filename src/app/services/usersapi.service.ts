@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { User } from '../model/user';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { RestaurantService } from './restaurant.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class UsersapiService {
   headers:any;
   user?:User;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private service: RestaurantService) { }
 
   public login(auth: any){
     const authURL:string = this.apiUrl+"authentication";
@@ -22,6 +23,7 @@ export class UsersapiService {
     console.log(username);
     
     sessionStorage.setItem("headers", btoa(username+":"+password));
+    this.service.getHeader(this.headers);
 
     return this.http.get(authURL, {headers, responseType: 'text' as 'json'});
   }
@@ -33,6 +35,8 @@ export class UsersapiService {
     
     sessionStorage.removeItem("userid")
     sessionStorage.removeItem("headers");
+    
+    this.service.removeHeader();
 
     return this.http.get(url, {headers, responseType: 'text' as 'json'});
   }

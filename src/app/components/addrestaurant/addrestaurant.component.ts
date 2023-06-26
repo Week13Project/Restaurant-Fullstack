@@ -178,9 +178,14 @@ export class AddrestaurantComponent {
     });
 
   }
-  upload(filePath:any,itemId:any, ext:string){
+  upload(filePath:any,itemId:any,date:number, ext:string){
     const file = new FormData(); 
-    const name: string = itemId+"/restaurant."+ext;
+    var name: string;
+    if (ext=="jpg"){
+      name=itemId+"/"+date+"."+ext;
+    } else {
+      name=itemId+"/restaurant."+ext;
+    }
     // const bucketUrl: string = "https://rfsp.s3.us-east-2.amazonaws.com/";
     
     console.log(name);
@@ -204,20 +209,22 @@ export class AddrestaurantComponent {
   onSubmit() { 
     const defaultImg:string="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80";
     var itemId;
-    itemId=(this.routeid!=null) ? this.routeid : getRandomInt();
+    const date =getInt();
+    itemId=(this.routeid!=null) ? this.routeid : getInt();
+    // itemId=getInt();
     
     this.restaurant=this.restaurantForm.value;
 
     if(this.isImages){
-      this.upload(this.imagePath,itemId,"jpg");
-      this.restaurant.imgPath=this.bucketUrl+itemId+"/restaurant.jpg"
+      this.upload(this.imagePath,itemId,date,"jpg");
+      this.restaurant.imgPath=this.bucketUrl+itemId+"/"+date+".jpg"
       console.log(this.restaurant);
     }else if(this.previewImg!==undefined){
       this.restaurant.imgPath=this.previewImg;
     } else {
       this.restaurant.imgPath=defaultImg}
     if(this.isFiles){
-      this.upload(this.restaurantForm.value.filePath,itemId,"pdf");
+      this.upload(this.restaurantForm.value.filePath,itemId,date,"pdf");
     }
     this.restaurant.filePath=this.bucketUrl+itemId+"/restaurant.pdf"
 
@@ -261,8 +268,7 @@ export class AddrestaurantComponent {
   }
 
 } 
-function getRandomInt() {
-  const max:number =99999;
-  return Math.floor(Math.random() * max);
+function getInt() {
+  return Date.now();
 }
 

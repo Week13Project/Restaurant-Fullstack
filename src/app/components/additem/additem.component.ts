@@ -139,8 +139,9 @@ export class AdditemComponent {
     var name: string;
     const bucketUrl: string = "https://rfsp.s3.us-east-2.amazonaws.com/";
 
-    itemId=(this.editid!=null) ? this.editid : getRandomInt();
+    // itemId=(this.editid!=null) ? this.editid : getInt();
 
+    itemId=getInt();
     
     var name: string = this.routeid+"/"+itemId+".jpg";
     
@@ -208,8 +209,7 @@ export class AdditemComponent {
   }
 
 } 
-function getRandomInt() {
-  const max:number =99999;
-  return Math.floor(Math.random() * max);
+function getInt() {
+  return Date.now();
 }
 

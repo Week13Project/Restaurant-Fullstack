@@ -21,6 +21,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { AdditemComponent } from './components/additem/additem.component';
 import { RestaurantComponent } from './components/restaurants/restaurant/restaurant.component';
 import { AddrestaurantComponent } from './components/addrestaurant/addrestaurant.component';
+import { RestaurantService } from './services/restaurant.service';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,7 @@ import { AddrestaurantComponent } from './components/addrestaurant/addrestaurant
     MatRadioModule,
     MatSelectModule,
   ],
-  providers: [UsersapiService],
+  providers: [UsersapiService,RestaurantService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
